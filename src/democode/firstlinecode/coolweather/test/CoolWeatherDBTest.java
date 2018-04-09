@@ -5,6 +5,11 @@ import democode.firstlinecode.coolweather.model.City;
 import democode.firstlinecode.coolweather.model.County;
 import democode.firstlinecode.coolweather.model.Province;
 
+/**
+ * CoolWeatherDB测试类
+ * @author Administrator
+ *
+ */
 public class CoolWeatherDBTest {
 	
 	/**

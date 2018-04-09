@@ -16,8 +16,10 @@ public class MainActivity extends Activity {
 		super.onCreate(bundle);
 		super.setContentView(R.layout.weather_layout);
 		
-		CoolWeatherDBTest coolWeatherDBTest = new CoolWeatherDBTest();
-		coolWeatherDBTest.test();
+//		CoolWeatherDBTest coolWeatherDBTest = new CoolWeatherDBTest();
+//		coolWeatherDBTest.test();
+		
+		
 	}
 	
 }
