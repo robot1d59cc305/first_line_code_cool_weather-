@@ -65,7 +65,6 @@ public class CoolWeatherDB {
 
 	/**
 	 * 保存从服务器上获取的Pointer类的数据.
-	 * 
 	 * @param province
 	 */
 	public void saveProvince(Province province) {
