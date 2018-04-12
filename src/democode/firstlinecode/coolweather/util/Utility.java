@@ -160,7 +160,7 @@ public class Utility {
 	}
 	
 	/**
-	 * 解析服务器返回的JSON数据,并将解析出的数据存储到本地. 主要是用于去解析详细这个县的天气情况是怎么样.
+	 * 解析服务器返回的JSON数据,并将解析出的数据存储到本地. 主要是用于去解析详细这个县的天气情况是怎么样. 
 	 * @param context
 	 * @param response
 	 */
@@ -186,8 +186,10 @@ public class Utility {
 				
 				String publishTime = weatherInfo.getString("ptime");
 				
+				// 通过这个方式存储到本地SharedPreferences里面,不需要再存储到数据库中了,所以取出来的时候也是通过SharedPreferences读取出来的方式.
+				saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
+				
 			}
-			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -226,6 +228,6 @@ public class Utility {
 		editor.putString("current_date",sdf.format(new Date()));
 		editor.commit();
 		
-	}
+	}  
 	
 }

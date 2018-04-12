@@ -8,6 +8,10 @@ import java.net.URL;
 
 public class HttpUtil {
 	
+	/**
+	 * @param address
+	 * @param listener
+	 */
 	public static void sendHttpRequest(final String address,
 			final HttpCallbackListener listener) {
 		new Thread(new Runnable() {
@@ -24,13 +28,16 @@ public class HttpUtil {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 					StringBuilder response = new StringBuilder();
 					String line;
+					
 					while ((line = reader.readLine()) != null) {
 						response.append(line);
 					}
+					
 					if (listener != null) {
 						// 回调onFinish()方法
 						listener.onFinish(response.toString());
 					}
+					
 				} catch (Exception e) {
 					if (listener != null) {
 						// 回调onError()方法

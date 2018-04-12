@@ -4,8 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * 
- * MyApplication类.
+ * MyApplication类. 
  * @author Administrator
  *
  */
