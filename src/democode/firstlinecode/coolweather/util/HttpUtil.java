@@ -8,10 +8,6 @@ import java.net.URL;
 
 public class HttpUtil {
 	
-	/**
-	 * @param address
-	 * @param listener
-	 */
 	public static void sendHttpRequest(final String address,
 			final HttpCallbackListener listener) {
 		new Thread(new Runnable() {
@@ -24,6 +20,7 @@ public class HttpUtil {
 					connection.setRequestMethod("GET");
 					connection.setConnectTimeout(8000);
 					connection.setReadTimeout(8000);
+					
 					InputStream in = connection.getInputStream();
 					BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 					StringBuilder response = new StringBuilder();
@@ -43,6 +40,7 @@ public class HttpUtil {
 						// 回调onError()方法
 						listener.onError(e);
 					}
+					
 				} finally {
 					if (connection != null) {
 						connection.disconnect();

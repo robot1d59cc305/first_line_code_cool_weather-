@@ -5,11 +5,13 @@ import com.example.democode.firstlinecode.coolweather.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -74,9 +76,14 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle bundle) {
 
 		super.onCreate(bundle);
+		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
+		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		super.setContentView(R.layout.weather_layout);
-
+		
+		
 		// 初始化属性中的各个控件
 		weatherInfoLayout = (LinearLayout) super.findViewById(R.id.weather_info_layout);
 
@@ -97,7 +104,6 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		refershWeather = (Button) super.findViewById(R.id.refresh_weather);
 
 		// 判断用户是否已经选中了某个县的天气并要求显示.
-
 		String countyCode = super.getIntent().getStringExtra("county_code");
 		
 		/* 判断countyCode属性是否存在 这行代码是确定了用户已经在ChooseAreaActivity页面中点击了省,市,县 三个按钮里面的最后一个县.
@@ -205,7 +211,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 							showWeather();
 						}
 					});
-					
+
 				}
 				
 			}
@@ -222,7 +228,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * 从SharedPreferences文件中读取粗出的天气信息,并显示到界面上.
+	 * 从SharedPreferences文件中读取出的天气信息,并显示到界面上.
 	 */
 	private void showWeather() {
 		// 1
@@ -241,7 +247,6 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		cityNameText.setVisibility(View.VISIBLE);
 		Intent intent = new Intent(this,AutoUpdateService.class);
 		startService(intent);
-		
 	}
 	
 }

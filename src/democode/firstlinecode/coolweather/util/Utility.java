@@ -167,30 +167,16 @@ public class Utility {
 	public static void handleWeatherResponse(Context context,String response) {
 		
 		try {
-			
-			if (!TextUtils.isEmpty(response)) {
-				
-				JSONObject jsonObject = new JSONObject(response);
-				
-				JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
-				
-				String cityName = weatherInfo.getString("city");
-				
-				String weatherCode = weatherInfo.getString("cityId");
-				
-				String temp1 = weatherInfo.getString("temp1");
-				
-				String temp2 = weatherInfo.getString("temp2");
-				
-				String weatherDesp = weatherInfo.getString("weather");
-				
-				String publishTime = weatherInfo.getString("ptime");
-				
-				// 通过这个方式存储到本地SharedPreferences里面,不需要再存储到数据库中了,所以取出来的时候也是通过SharedPreferences读取出来的方式.
-				saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
-				
-			}
-			
+			JSONObject jsonObject = new JSONObject(response);
+			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
+			String cityName = weatherInfo.getString("city");
+			String weatherCode = weatherInfo.getString("cityid");
+			String temp1 = weatherInfo.getString("temp1");
+			String temp2 = weatherInfo.getString("temp2");
+			String weatherDesp = weatherInfo.getString("weather");
+			String publishTime = weatherInfo.getString("ptime");
+			// 通过这个方式存储到本地SharedPreferences里面,不需要再存储到数据库中了,所以取出来的时候也是通过SharedPreferences读取出来的方式.
+			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

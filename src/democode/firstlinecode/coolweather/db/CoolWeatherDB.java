@@ -13,9 +13,7 @@ import democode.firstlinecode.coolweather.util.MyApplication;
 
 /**
  * CoolWeatherDB 通过这个类去访问数据库
- * 
  * @author Administrator
- *
  */
 public class CoolWeatherDB {
 
@@ -50,7 +48,6 @@ public class CoolWeatherDB {
 
 	/**
 	 * 通过这个方法返回CoolWeatherDB实例.
-	 * 
 	 * @return
 	 */
 	public synchronized static CoolWeatherDB getCoolWeatherDB() {

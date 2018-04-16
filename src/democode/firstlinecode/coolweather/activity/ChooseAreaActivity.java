@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -121,12 +122,20 @@ public class ChooseAreaActivity extends Activity {
 		
 		// 0.
 		super.onCreate(savedInstanceState);
-		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 1.如果从WeatherActivity跳转过来则会带一个参数from_weather_activity,如果没有这个参数则值为false;
 		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity",false);
 		
 		// 2.获取SharedPreferences文件.因为在获取天气信息的时候是将天气使用SharedPreferences方式保存的.
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		if (prefs.getBoolean("city_selected",false) && !isFromWeatherActivity ) {
+			Intent intent = new Intent(this,WeatherActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
 		
 		// 3.取消头部
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -162,6 +171,7 @@ public class ChooseAreaActivity extends Activity {
 				if (currentLevel == LEVEL_PROVINCE) {
 					
 					selectedProvince = provinceList.get(position);
+					
 					queryCity();
 					
 				} else if (currentLevel == LEVEL_CITY) { // 如果当前加载的ListView控件数据是关于市的数据.
@@ -325,7 +335,7 @@ public class ChooseAreaActivity extends Activity {
 					result = Utility.handleProvincesResponse(coolWeatherDB,response);
 				} else if("city".equals(type)) {
 					result = Utility.handleCityResponse(coolWeatherDB, response,selectedProvince.getId());
-				} else if("cpunty".equals(type)) {
+				} else if("county".equals(type)) {
 					result = Utility.handleCountiesResponse(coolWeatherDB, response,selectedCity.getId());
 				}
 				
@@ -336,6 +346,7 @@ public class ChooseAreaActivity extends Activity {
 
 						@Override
 						public void run() {
+							
 							// 将数据存储到数据库之后,则将进度条框关闭.
 							closeProgressDialog();
 							
@@ -362,16 +373,19 @@ public class ChooseAreaActivity extends Activity {
 			 * 发送失败
 			 */
 			@Override
-			public void onError(Exception e) {
+			public void onError(final Exception e) {
 				runOnUiThread(new Runnable(){
 
 					@Override
 					public void run() {
+						
 						// 关闭进度对话框.
 						closeProgressDialog();
 						
 						// 使用Toast提示加载失败.
 						Toast.makeText(ChooseAreaActivity.this,"加载失败",Toast.LENGTH_SHORT).show();
+						
+						e.printStackTrace();
 					}
 					
 				});
